@@ -1,0 +1,21 @@
+{
+  "name": "polygon-playground",
+  "version": "1.0.0",
+  "description": "polygon stuff",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@maticnetwork/maticjs": "^3.0.0",
+    "@maticnetwork/maticjs-plasma": "^1.0.1",
+    "@maticnetwork/maticjs-web3": "^1.0.0",
+    "@truffle/hdwallet-provider": "^2.0.0",
+    "bn": "^1.0.5",
+    "dotenv": "^10.0.0",
+    "ethers": "^5.5.1"
+  }
+}
