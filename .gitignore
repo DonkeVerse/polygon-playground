@@ -1,2 +1,11 @@
 .env
-node_modules
+*node_modules
+*DS_Store
+
+state-transfer/coverage
+state-transfer/coverage.json
+state-transfer/typechain
+
+#Hardhat files
+state-transfer/cache
+state-transfer/artifacts
