@@ -10,10 +10,10 @@ if (env.error) {
 
 module.exports = {
   parent: {
-    rpc: process.env.ROOT_RPC,
+    rpc: process.env.GOERLI_RPC,
   },
   child: {
-    rpc: process.env.MATIC_RPC || "https://rpc-mumbai.matic.today",
+    rpc: process.env.MUMBAI_RPC || "https://rpc-mumbai.matic.today",
   },
   pos: {
     parent: {

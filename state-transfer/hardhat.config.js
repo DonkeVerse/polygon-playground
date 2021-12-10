@@ -1,4 +1,8 @@
-require("dotenv").config();
+const dotenv = require("dotenv");
+const path = require("path");
+dotenv.config({
+  path: path.join(__dirname, "../.env"),
+});
 require("@nomiclabs/hardhat-waffle");
 require("@nomiclabs/hardhat-etherscan");
 // You need to export an object to set up your config
@@ -10,13 +14,14 @@ require("@nomiclabs/hardhat-etherscan");
 
 let accounts = [];
 
-if (process.env.PRIVATE_KEY) {
-  accounts = [`0x${process.env.PRIVATE_KEY}`, ...accounts];
+if (process.env.USER1_PRIVATE_KEY) {
+  accounts = [process.env.USER1_PRIVATE_KEY, ...accounts];
+  // console.log(accounts);
 }
 
 module.exports = {
   solidity: {
-    version: "0.8.4",
+    version: "0.8.0",
     settings: {
       optimizer: {
         enabled: true,
