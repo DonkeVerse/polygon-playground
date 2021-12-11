@@ -8,17 +8,13 @@ async function main() {
     AddrFxStateRootTunnel
   );
   console.log("fxStateRootTunnel : ", fxStateRootTunnel.address);
-
-  console.log("FxStateRootTunnel -> Sending Message From Root to Child...");
-  const sendMessage = await fxStateRootTunnel.sendMessageToChild(
-    "0x706f6c79676f6e00000000000000000000000000000000000000000000000000000000"
-  );
-  console.log("sendMessage: ", sendMessage);
-  await sendMessage.wait();
-  console.log("Message sent");
+  console.log("FxStateRootTunnel -> Reading SEND_MESSAGE_EVENT_SIG...");
+  const SEND_MESSAGE_EVENT_SIG =
+    await fxStateRootTunnel.SEND_MESSAGE_EVENT_SIG();
+  console.log("SEND_MESSAGE_EVENT_SIG: ", SEND_MESSAGE_EVENT_SIG);
 }
 
-// npx hardhat run scripts/send_root_to_child.js --network goerli
+// npx hardhat run scripts/query.js --network goerli
 main()
   .then(() => process.exit(0))
   .catch((error) => {

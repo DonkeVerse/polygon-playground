@@ -37,7 +37,7 @@ async function main() {
 }
 
 // npx hardhat run scripts/deploy_child_tunnel.js --network mumbai
-// FxStateChildTunnel deployed to: 0x57e77542bDb91D22C8dA8FECFd7A93c5767D2056
+// FxStateChildTunnel deployed to: 0xaB914bD287Fcc388742D3916CA261Bf58aeA7113
 main()
   .then(() => process.exit(0))
   .catch((error) => {

@@ -6,9 +6,6 @@ dotenv.config({
 const config = require("../config/config.json");
 const hre = require("hardhat");
 
-// Use your own deployed child tunnel addresses here instead!
-const AddrFxStateChildTunnel = "0x9498aDC22Be5Dc389B8A6fb9b833AAC4970cd92C";
-
 async function main() {
   let fxRoot, checkpointManager;
 
@@ -48,7 +45,7 @@ async function main() {
 }
 
 // npx hardhat run scripts/deploy_root_tunnel.js --network goerli
-// FxStateRootTunnel deployed to: 0x31a489a08603BfAb1B22430B2207C15c8d8897b2
+// FxStateRootTunnel deployed to: 0xaB914bD287Fcc388742D3916CA261Bf58aeA7113
 main()
   .then(() => process.exit(0))
   .catch((error) => {

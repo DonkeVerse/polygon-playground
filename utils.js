@@ -3,8 +3,10 @@ const HDWalletProvider = require("@truffle/hdwallet-provider");
 const config = require("./config");
 const { POSClient, setProofApi, use } = require("@maticnetwork/maticjs");
 const { PlasmaClient } = require("@maticnetwork/maticjs-plasma");
+const { FxPortalClient } = require("@fxportal/maticjs-fxportal");
 const SCALING_FACTOR = new bn(10).pow(new bn(18));
 const { Web3ClientPlugin } = require("@maticnetwork/maticjs-web3");
+const { version } = require("ethers");
 
 // install web3 plugin
 use(Web3ClientPlugin);
@@ -66,10 +68,36 @@ const getPlasmaClient = async (network = "testnet", version = "mumbai") => {
   }
 };
 
+const getFxPortalClient = async (network = "testnet", version = "mumbai") => {
+  try {
+    const fxPortalClient = new FxPortalClient();
+    await fxPortalClient.init({
+      network: "testnet",
+      version: "mumbai",
+      parent: {
+        provider: new HDWalletProvider(privateKey, config.parent.rpc),
+        defaultConfig: {
+          from: userAddress,
+        },
+      },
+      child: {
+        provider: new HDWalletProvider(privateKey, config.child.rpc),
+        defaultConfig: {
+          from: userAddress,
+        },
+      },
+    });
+    return fxPortalClient;
+  } catch (error) {
+    console.error("error unable to initiate fxPortalClient", error);
+  }
+};
+
 module.exports = {
   SCALING_FACTOR,
   getPOSClient: getPOSClient,
   getPlasmaClient: getPlasmaClient,
+  getFxPortalClient: getFxPortalClient,
   parent: config.parent,
   child: config.child,
   plasma: config.plasma,

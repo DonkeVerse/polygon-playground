@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
+
 import {RLPReader} from "../lib/RLPReader.sol";
 import {MerklePatriciaProof} from "../lib/MerklePatriciaProof.sol";
 import {Merkle} from "../lib/Merkle.sol";
 import "../lib/ExitPayloadReader.sol";
+
 
 interface IFxStateSender {
     function sendMessageToChild(address _receiver, bytes calldata _data) external;
@@ -42,7 +44,7 @@ abstract contract FxBaseRootTunnel {
     IFxStateSender public fxRoot;
     // root chain manager
     ICheckpointManager public checkpointManager;
-    // child tunnel contract which receives and sends messages
+    // child tunnel contract which receives and sends messages 
     address public fxChildTunnel;
 
     // storage to avoid duplicate exits
@@ -88,7 +90,10 @@ abstract contract FxBaseRootTunnel {
                 payload.getReceiptLogIndex()
             )
         );
-        require(processedExits[exitHash] == false, "FxRootTunnel: EXIT_ALREADY_PROCESSED");
+        require(
+            processedExits[exitHash] == false,
+            "FxRootTunnel: EXIT_ALREADY_PROCESSED"
+        );
         processedExits[exitHash] = true;
 
         ExitPayloadReader.Receipt memory receipt = payload.getReceipt();
@@ -100,7 +105,12 @@ abstract contract FxBaseRootTunnel {
         bytes32 receiptRoot = payload.getReceiptRoot();
         // verify receipt inclusion
         require(
-            MerklePatriciaProof.verify(receipt.toBytes(), branchMaskBytes, payload.getReceiptProof(), receiptRoot),
+            MerklePatriciaProof.verify(
+                receipt.toBytes(), 
+                branchMaskBytes, 
+                payload.getReceiptProof(), 
+                receiptRoot
+            ),
             "FxRootTunnel: INVALID_RECEIPT_PROOF"
         );
 
@@ -122,7 +132,7 @@ abstract contract FxBaseRootTunnel {
         );
 
         // received message data
-        bytes memory message = abi.decode(log.getData(), (bytes)); // event decodes params again, so decoding bytes to get message
+        (bytes memory message) = abi.decode(log.getData(), (bytes)); // event decodes params again, so decoding bytes to get message
         return message;
     }
 
@@ -134,11 +144,20 @@ abstract contract FxBaseRootTunnel {
         uint256 headerNumber,
         bytes memory blockProof
     ) private view returns (uint256) {
-        (bytes32 headerRoot, uint256 startBlock, , uint256 createdAt, ) = checkpointManager.headerBlocks(headerNumber);
+        (
+            bytes32 headerRoot,
+            uint256 startBlock,
+            ,
+            uint256 createdAt,
+
+        ) = checkpointManager.headerBlocks(headerNumber);
 
         require(
-            keccak256(abi.encodePacked(blockNumber, blockTime, txRoot, receiptRoot)).checkMembership(
-                blockNumber - startBlock,
+            keccak256(
+                abi.encodePacked(blockNumber, blockTime, txRoot, receiptRoot)
+            )
+                .checkMembership(
+                blockNumber-startBlock,
                 headerRoot,
                 blockProof
             ),
@@ -175,5 +194,5 @@ abstract contract FxBaseRootTunnel {
      * Since it is called via a system call, any event will not be emitted during its execution.
      * @param message bytes message that was sent from Child Tunnel
      */
-    function _processMessageFromChild(bytes memory message) internal virtual;
+    function _processMessageFromChild(bytes memory message) virtual internal;
 }
