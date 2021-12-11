@@ -13,6 +13,7 @@ async function main() {
   let fxRoot, checkpointManager;
 
   const network = await hre.ethers.provider.getNetwork();
+  // console.log(network);
 
   if (network.chainId === 1) {
     // Ethereum Mainnet
@@ -35,7 +36,7 @@ async function main() {
     checkpointManager,
     fxRoot
   );
-  console.log(fxStateRootTunnel.deployTransaction);
+  console.log("fxStateRootTunnel: ", fxStateRootTunnel);
   await fxStateRootTunnel.deployTransaction.wait();
   console.log("FxStateRootTunnel deployed to:", fxStateRootTunnel.address);
   console.log(
@@ -44,19 +45,10 @@ async function main() {
     checkpointManager,
     fxRoot
   );
-
-  console.log("Setting Child Tunnel in FxStateRootTunnel...");
-  const setFxStateChildTunnel = await fxStateRootTunnel.setFxChildTunnel(
-    AddrFxStateChildTunnel
-  );
-  console.log(setFxStateChildTunnel);
-  await setFxStateChildTunnel.wait();
-  console.log("FxStateChildTunnel set");
 }
 
-// npx hardhat run scripts/deploy_root_state.js --network goerli
-// FxStateRootTunnel deployed to: 0x60CC03D60c0607a1f32E8bEa849f29619e858653
-// FxStateChildTunnel set
+// npx hardhat run scripts/deploy_root_tunnel.js --network goerli
+// FxStateRootTunnel deployed to: 0x31a489a08603BfAb1B22430B2207C15c8d8897b2
 main()
   .then(() => process.exit(0))
   .catch((error) => {

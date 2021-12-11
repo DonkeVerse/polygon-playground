@@ -10,7 +10,7 @@ async function main() {
   let fxChild;
 
   const network = await hre.ethers.provider.getNetwork();
-  console.log(network);
+  // console.log(network);
 
   if (network.chainId === 137) {
     // Polygon Mainnet
@@ -25,8 +25,8 @@ async function main() {
   const FxStateChildTunnel = await hre.ethers.getContractFactory(
     "FxStateChildTunnel"
   );
-  console.error(FxStateChildTunnel);
   const fxStateChildTunnel = await FxStateChildTunnel.deploy(fxChild);
+  console.log("fxStateChildTunnel: ", fxStateChildTunnel);
   await fxStateChildTunnel.deployTransaction.wait();
   console.log("FxStateChildTunnel deployed to:", fxStateChildTunnel.address);
   console.log(
@@ -36,8 +36,8 @@ async function main() {
   );
 }
 
-// npx hardhat run scripts/deploy_child_state.js --network mumbai
-// FxStateChildTunnel deployed to: 0x9498aDC22Be5Dc389B8A6fb9b833AAC4970cd92C
+// npx hardhat run scripts/deploy_child_tunnel.js --network mumbai
+// FxStateChildTunnel deployed to: 0x57e77542bDb91D22C8dA8FECFd7A93c5767D2056
 main()
   .then(() => process.exit(0))
   .catch((error) => {
