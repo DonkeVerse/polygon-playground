@@ -1,16 +1,17 @@
 # polygon-playground
 
-1. npm install to get dependencies
-2. create .env using env.example as ref
-3. simply run the .js files with
-```bash
-node <file>.js
-```
-4. Verify the results in wallet (for more detatils-> goerli & mumbai explorers)
+0.1 npm install to get dependencies
+0.2 create .env using env.example as ref
 
-5. Arbitrary state transfer L1 <-> L2 using Fx Tunnel ->  Run the scripts inside state-transfer :
+1. Using POS/Plasma Client for ERC20 trasnfer L1 <-> L2 ->  Run the scripts inside plasma and pos directories :
 ```bash
-npx hardhat run <script_file>.js --network <goerli/mumbai>
+node <script>.js
+```
+Verify the results in wallet (for more detatils-> goerli & mumbai explorers)
+
+2. Arbitrary state transfer L1 <-> L2 using Fx Tunnel ->  Run the scripts inside state-transfer/scripts :
+```bash
+npx hardhat run <script>.js --network <goerli/mumbai>
 ```
 
-6. ERC20 Tunnels -> TODO
+3. ERC20 Tunnels -> TODO
